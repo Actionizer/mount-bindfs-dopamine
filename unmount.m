@@ -19,11 +19,11 @@ void execute_unsandboxed(void (^block)(void))
 	jbclient_root_steal_ucred(credBackup, NULL);
 }
 
-int umount_unsandboxed(const char *type, const char *dir, int flags, void *data)
+int umount_unsandboxed(const char *type, const char *dir, void *data)
 {
 	__block int r = 0;
 	execute_unsandboxed(^{
-		r = umount(type, dir, flags, data);
+		r = umount(dir);
 	});
 	return r;
 }
@@ -43,6 +43,6 @@ int main(int argc, char *argv[]) {
         void *libjailbreak = dlopen(LIBJAILBREAK_PATH, RTLD_NOW);
         jbclient_root_steal_ucred = dlsym(libjailbreak, "jbclient_root_steal_ucred");
 
-        return umount_unsandboxed("bindfs", argv[2], MNT_RDONLY, argv[1]);
+        return umount_unsandboxed("bindfs", argv[2], argv[1]);
     }
 }
