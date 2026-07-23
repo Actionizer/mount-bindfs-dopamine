@@ -23,7 +23,7 @@ int umount_unsandboxed(const char *dir, int flags)
 {
 	__block int r = 0;
 	execute_unsandboxed(^{
-		r = unmount(dir);
+		r = unmount(dir, flags);
 	});
 	return r;
 }
