@@ -1,4 +1,4 @@
-Package: mount_bindfs
+Package: mount-bindfs
 Name: mount_bindfs
 Version: 0.0.1
 Architecture: iphoneos-arm
